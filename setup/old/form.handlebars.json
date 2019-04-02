@@ -1,0 +1,9 @@
+{"input":
+[
+    {"checkbox":true, "label":"alabel", "icon":"<i class='w3-xxlarge fa fa-phone'></i>", "id":"someid"},
+    {"option":  true, "label":"alabel", "icon":"<i class='w3-xxlarge fa fa-phone'></i>", "id":"someid", "placeholder":"some placeholder","options":["Option 1","Option 13","Option 12","Option 11","Option 10"]},
+    {"text":    true, "label":"alabel", "icon":"<i class='w3-xxlarge fa fa-phone'></i>", "id":"someid", "placeholder":"some placeholder"},
+    {"textarea":true, "label":"alabel", "icon":"<i class='w3-xxlarge fa fa-pen'></i>", "id":"someid", "placeholder":"some placeholder"},
+    {"jsonobject":true, "label":"alabel", "icon":"<i class='w3-xxlarge fa fa-pen'></i>", "id":"someid", "placeholder":"2011-01-01"}
+]
+}

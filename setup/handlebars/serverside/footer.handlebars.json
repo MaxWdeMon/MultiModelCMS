@@ -1,0 +1,35 @@
+{"social":[
+    {
+        "link":"",
+        "icon":"<i class='fa fa-facebook-official w3-hover-opacity'></i>"
+    },
+    {
+        "link":"",
+        "icon":"<i class='fa fa-instagram w3-hover-opacity'></i>"
+    },
+    {
+        "link":"",
+        "icon":"<i class='fa fa-linkedin w3-hover-opacity'></i>"
+    },
+    {
+        "link":"",
+        "icon":"<i class='fa fa-pinterest-p w3-hover-opacity'></i>"
+    },
+    {
+        "link":"",
+        "icon":"<i class='fa fa-snapchat w3-hover-opacity'></i>"
+    },
+    {
+        "link":"",
+        "icon":"<i class='fa fa-twitter w3-hover-opacity'></i>"
+    }
+],
+"html_footers":
+[
+    "Powered by", 
+    "<a href='http://arangodb.com' title='Arangodb' target='_blank' class='w3-hover-opacity'><img src='https://www.arangodb.com/wp-content/uploads/2016/10/ArangoDB-logo-bg.svg' height='25' width='165'/></a> ",
+    "<a href='http://handlebarsjs.com' title='Handlebarsjs' target='_blank' class='w3-hover-opacity'><img src='https://handlebarsjs.com/images/handlebars_logo.png' height='26' width='34'/> Handlebars.js</a> ",
+    "<a href='https://www.w3schools.com/w3css/default.asp' title='W3.CSS' target='_blank' class='w3-hover-opacity'><img src='https://www.w3schools.com//favicon.ico' height='26' width='26'/>w3.css</a> "
+],
+"background-image": "/img/sea2.sml.jpg"
+}

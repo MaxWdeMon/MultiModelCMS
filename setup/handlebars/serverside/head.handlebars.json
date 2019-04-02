@@ -1,0 +1,14 @@
+{
+    "title":"Handlebars Arango CMS Template",
+    "stylesheethref":["https://www.w3schools.com/w3css/4/w3.css",
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", 
+        "style.css"],
+    "script":[
+        {"src":"https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js","type":"text/javascript"},
+        {"src":"handlebars.runtime.min.js","type":"text/javascript"},
+        {"src":"templates.js","type":"text/javascript"},
+        {"src":"formatting.js","type":"text/javascript"}
+    ],
+    "customHTML":"",
+    "baseURI":"http://127.0.0.1:8529/_db/school/test/"
+}

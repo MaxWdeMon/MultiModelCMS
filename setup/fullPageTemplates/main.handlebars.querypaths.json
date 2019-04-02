@@ -1,0 +1,23 @@
+{
+  "head": {"template": "head",
+  "data":[
+    "test_handlebarsTemplates/head.sampleData"
+  ]},
+  "menu":{"template": "menu", "data": [
+    "test_pageMenus/overview",
+    "test_pageMenus/news",
+    "test_pageMenus/details",
+    "test_pageMenus/settings",
+    "test_pageMenus/help"
+  ]},
+  "body":{"template": "body", "data": [
+    "test_pageMenus/overview",
+    "test_pageMenus/news",
+    "test_pageMenus/details",
+    "test_pageMenus/settings",
+    "test_pageMenus/help"
+  ]},
+  "footer":{"template": "footer", "data": [
+    "test_Footers/mainFooters"
+  ]}
+}

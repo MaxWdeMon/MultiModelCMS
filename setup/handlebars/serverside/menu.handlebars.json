@@ -1,0 +1,8 @@
+
+    [
+        {"_key":"overview", "section": "Overview", "subheader": "Welcome and enjoy!","template":"table", "src": "colTable/overview","has_img": true, "img_src": "./img/sky1.sml.jpg", "show_table": true, "show_text": false, "icon_code": "<i class='fa fa-globe'></i> "}, 
+        {"_key":"news", "section": "What's New", "subheader": "See what happened last week","template":"table", "src": "colTable/news", "show_table": false, "show_text": true, "icon_code": "<i class='fa fa-newspaper-o'></i> "},  
+        {"_key":"details", "section": "Details", "subheader": "What we actually do","template":"table", "src": "colTable/details", "has_img": true, "img_src": "./img/sky2.sml.jpg",  "show_table": true, "table_style": "simple", "icon_code": "<i class='fa fa-info-circle'></i> "}, 
+        {"_key":"settings", "section": "Settings", "subheader": "User preferences","template":"table", "src": "colTable/settings", "show_table": true, "has_img": true, "img_src": "./img/sea1.sml.jpg", "icon_code": "<i class='fa fa-cog'></i> "},
+        {"_key":"help", "section": "Help", "subheader": "FAQ","template":"table", "src": "colTable/help", "show_table": false, "show_text":true,  "icon_code": "<i class='fa fa-question-circle-o'></i> "} 
+    ]

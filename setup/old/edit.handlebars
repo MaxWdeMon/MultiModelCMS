@@ -1,0 +1,30 @@
+<html>
+<head>
+    {{{head}}}
+</head>
+
+<body>
+        <div class="w3-bar w3-teal w3-display-container" id="navbar_lrg">
+            <form>
+                <button class="w3-button" onclick="plusDivs(-1)">&#10094;</button>
+                <select name="collection" size="1">
+                    {{#each collection}}
+                        <option value="{{this.value}}">{{this.tag}}</option>
+                    {{/each}}
+                </select>
+                <select name="document" size="1">
+                   {{#each document}}
+                        <option value="{{this.value}}">{{this.tag}}</option>
+                    {{/each}}         
+                </select>
+
+                <button class="w3-button" onclick="plusDivs(+1)">&#10095;</button>                
+                <button class="w3-btn w3-circle">+</button>
+                <button class="w3-btn w3-circle"><i class='fa fa-clone'></i></button>
+                <button class="w3-btn w3-circle">&#10005;</button>
+            </form>
+        </div>
+{{{editdoc}}}
+{{{footer}}}
+</body>
+</html>

@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>Basic ArangoDB CMS</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="formatting.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+    <!--importing handlebars-->
+    <script src="handlebars.runtime.min.js"></script>
+    <!--importing compiled templates-->
+    <script src="templates.js"></script>
+</head>
+<body>
+<div id="main_div">show populated template here</div>
+<div id="footer_div"></div>
+
+<script  type="text/javascript">
+var jsonmenu = {};
+function transposeTable(table){
+    var tabl = jsontable.table.tbody;
+    table.table.tbody = tabl[0].map((x,i) => tabl.map(x => x[i]));
+    return table;
+}
+function getXMLHttpData(url, func, elementId, templateId){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            func(myArr, elementId, templateId);                
+            if(templateId == "menu"){ //populate tables after loading document structure
+                populateSections(myArr);
+            }
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+function getXMLHttpDataMarkdown(url, func, elementId){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            func(this.responseText, elementId);                
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+
+function setElement(jsonData, elementId, templateId){
+    var divElement = document.getElementById(elementId);
+    divElement.innerHTML = Handlebars.templates[templateId](jsonData);
+}
+function setMarkdownElement(markdownText, elementId){
+    var divElement = document.getElementById(elementId);
+    divElement.innerHTML = marked(markdownText);
+}
+
+getXMLHttpData("./menu.json", setElement, "main_div", "menu");
+getXMLHttpData("./Footers/mainFooters", setElement, "footer_div", "footer");
+//getXMLHttpData("./collections", setElement, "detailed_settings", "table");
+// function populateItem(itemurl,  )
+
+function populateSections(jsonmenu){
+    for(var i of jsonmenu){
+        if(i.show_table) {
+            getXMLHttpData("./colTable/"+i.collection, setElement, "detailed_"+i._key, "table");
+        }
+        else if (i.show_text){
+            getXMLHttpDataMarkdown("./colMarkdown/"+i.collection, setMarkdownElement, "detailed_"+i._key);
+        }
+    }
+}
+</script>
+</body>
+</html>

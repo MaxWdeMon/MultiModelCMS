@@ -1,0 +1,25 @@
+
+
+{{#each document}}
+<h1>{{this}}</h1>
+{{/each}}
+<div id="src">{{document.section}}</div>
+<div id="tgt"></div>
+<div id="check"></div>
+
+<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js">
+</script>
+<script>
+
+    var remark = Remarkable();
+  remark.set({
+    html: true,
+    breaks: true
+    });
+  var src = document.getElementById("src");
+  var tgt = document.getElementById("tgt");
+  var check = document.getElementById("check");
+  tgt.innerHTML = remark.render(src.innerText);
+  check.innerHTML = "a!!!!";
+</script>
+

@@ -1,0 +1,11 @@
+{
+    "head": [
+      "test_handlebarsTemplates/head.sampleData"
+    ],
+    "edit": [
+      "test_pageMenus/overview"
+    ],
+    "footer": [
+      "test_Footers/mainFooters"
+    ]
+}

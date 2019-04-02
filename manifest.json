@@ -1,0 +1,29 @@
+{
+  "engines": {
+    "arangodb": "^3.0.0"
+  },
+  "main": "index.js",
+  "defaultDocument": "./index.html",
+  "scripts": {
+    "setup": "scripts/setup.js"
+},
+  "files": {
+    "/": "files",
+    "/index.html": "./index.html",
+    "style.css": "./files/style.css",
+
+    "formatting.js": {
+      "path": "./files/formatting.js",
+      "type": "application/javascript"
+    },
+    "handlebars.runtime.min.js": {
+      "path": "./node_modules/handlebars/dist/handlebars.runtime.min.js",
+      "type": "application/javascript"
+    },
+    "handlebars.min.js": {
+      "path": "./node_modules/handlebars/dist/handlebars.min.js",
+      "type": "application/javascript"
+    }
+  },  
+  "lib": "."
+}

@@ -1,0 +1,16 @@
+{{#with table}}
+<table {{{attributes}}}>
+    <tr>
+    {{#each this.thead as |colhead|}}
+      <th>{{{colhead}}} </th>
+    {{/each}}
+    </tr>
+    {{#each this.tbody as |row|}}
+    <tr>
+      {{#each row as |cell|}}
+      <td>{{{cell}}}</td>
+      {{/each}}
+    </tr>
+    {{/each}}
+</table>
+{{/with}}

@@ -1,0 +1,8 @@
+<title>{{title}}</title>
+{{#each stylesheethref}}
+    <link rel="stylesheet" href="{{{this}}}">
+{{/each}}
+{{#each script}}
+    <script src="{{{this.src}}}" type="{{{this.type}}}"></script>
+{{/each}}
+{{{customHTML}}}

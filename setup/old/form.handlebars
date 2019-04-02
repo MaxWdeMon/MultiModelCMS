@@ -1,0 +1,60 @@
+
+<form class="w3-container">
+
+{{#each input}}
+
+{{!-- {{#if this.jsonobject}}
+  {{jsonparser "asdf"}}
+{{/if}} --}}
+
+{{#if this.text}}
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px">{{{this.label}}}</div>
+    <div class="w3-rest">
+      <input class="w3-input w3-hover-grey" name="{{this.id}}" type="text" placeholder="{{{this.placeholder}}}">
+    </div>
+</div>
+{{/if}}
+
+{{#if this.checkbox}}
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px">{{{this.label}}}</div>
+    <div class="w3-rest">
+      <label>{{{this.placeholder}}}</label>
+      <input class="w3-check w3-hover-grey" type="checkbox">
+    </div>
+  </div>
+</div>
+{{/if}}
+
+{{#if this.option}}
+<div class="w3-row w3-section">
+  <label>{{{this.label}}}</label>
+  <div class="w3-col" style="width:50px">{{{this.icon}}}</div>
+    <div class="w3-rest">
+    
+      <select class="w3-select  w3-hover-grey" name="option">
+        <option value="">{{this.placeholder}}</option>
+        <option value="1">Option 1</option>
+      </select>
+    </div>
+</div>
+
+{{/if}}
+{{#if this.textarea}}
+
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"> </div>
+    <label><i class="w3-xxlarge fa fa-pencil"></i>Free Text</label>
+    <div class="w3-rest">
+      
+      <textarea  class="w3-input w3-hover-grey" rows="10">Enter some free text</textarea>
+    </div>
+  </div>
+</div>
+{{/if}}
+{{/each}}
+
+
+</form>
+

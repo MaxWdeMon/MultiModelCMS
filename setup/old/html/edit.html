@@ -1,0 +1,76 @@
+<html>
+<head><title>Basic ArangoDB CMS</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../style.css">
+<script src="../formatting.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+</head>
+<body>
+
+        <div class="w3-bar w3-teal w3-display-container" id="navbar_lrg">
+            <form>
+                <button class="w3-button" onclick="plusDivs(-1)">&#10094;</button>
+                <select name="collection" size="1">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                </select>
+                <select name="document" size="1">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                </select>
+
+                <button class="w3-button" onclick="plusDivs(+1)">&#10095;</button>                
+                <button class="w3-btn w3-circle">+</button>
+                <button class="w3-btn w3-circle"><i class='fa fa-clone'></i></button>
+                <button class="w3-btn w3-circle">&#10005;</button>
+            </form>
+        </div>
+<div id="main_div">show populated template here</div>
+<div id="footer_div"></div>
+    <!--importing handlebars-->
+<script src="../handlebars.runtime.min.js"></script>
+    <!-- importing compiled templates-->
+<script src="../templates.js"></script>
+<script  type="text/javascript">
+var jsondata = {
+  "text": "entry 1 from collection texts",
+  "another entry": [
+    "a",
+    1234,
+    "asdfa",
+    "reqwreqwr",
+    43141234123
+  ]
+};
+
+function getXMLHttpData(url, func, elementId, templateId){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            func(myArr[0], elementId, templateId);                
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+
+function setElement(jsonData, elementId, templateId){
+    var divElement = document.getElementById(elementId);
+    divElement.innerHTML = Handlebars.templates[templateId](jsonData);
+}
+
+getXMLHttpData("../collections/hellp_texts?skip=2&limit=1", setElement, "main_div", "anyjsonform");
+// getXMLHttpData("../footer/mainFooters", setElement, "footer_div", "footer");
+//getXMLHttpData("./collections", setElement, "detailed_settings", "table");
+// function populateItem(itemurl,  )
+
+
+</script>
+</body>
+</html>
