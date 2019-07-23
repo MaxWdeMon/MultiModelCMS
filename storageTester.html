@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <title>CMS Login</title>
+</head>
+
+<body>
+    <script>
+        // sessionStorage.clear();
+        sessionStorage.setItem("alsjdhfaslkdjhfakjlsdhfjkasdhfkljhasljkdfh", "valuvaluva");
+        sessionStorage.setItem("alsjdhfaslkdjhfakjlsdhfjkasdhfkljhasljkdfh12", "valuvaluva");
+        sessionStorage.setItem("alsjdhfaslkdjhfakjlsdhfjkasdhfkljhasljkdfh31", "valuvaluva");
+        sessionStorage.setItem("alsjdhfaslkdjhfakjlsdhfjkasdhfkljhasljkdfh123123", "valuvaluva");
+        console.log(sessionStorage.length);
+        for (var i = 0; i < sessionStorage.length; i++) {
+            var k = sessionStorage.key(i);
+            console.log(i);
+            console.log(k);
+            console.log(sessionStorage.getItem(k));
+        }
+        // for (var s in sessionStorage) {
+        //     console.log("key+val");
+        //     console.log(s);
+        //     console.log(sessionStorage[s]);
+        // }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<html>
+
+<head>
+    <title>CMS Login</title>
+</head>
+
+<body>
+    <script>
+        function ffetch() {
+            document.getElementById("resp").innerText = "sending";
+            var url = "/_db/school/_open/auth";
+            console.log(document.getElementById("un").value);
+            var data = {
+                "username": document.getElementById("un").value,
+                "password": document.getElementById("pw").value
+            };
+            fetch(url, {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, cors, *same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'include', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrer: 'no-referrer', // no-referrer, *client
+                    body: JSON.stringify(data), // body data type must match "Content-Type" header
+                })
+                .then(function(response) {
+                    return response.json();
+                }).then(jwt => {
+                    console.log(jwt);
+                    sessionStorage.setItem("jwt", jwt.jwt);
+                    document.getElementById("resp").innerText = sessionStorage.getItem("jwt");
+                }).catch(function(rejected) {
+                    document.getElementById("resp").innerText = rejected;
+                });
+            //document.getElementById("resp").innerText("sent");
+        }
+
+        function getSampleDoc() {
+            console.log("get sample doc");
+            var jwt = sessionStorage.getItem("jwt");
+            var url = "/_db/school/_api/document/hellp_texts/527617";
+            fetch(url, {
+                method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, cors, *same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'include', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'bearer ' + jwt
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrer: 'no-referrer' // no-referrer, *client
+            }).then(function(r) {
+                console.log(r);
+                return r.json();
+            }).then(function(r2) {
+                console.log(r2);
+            });
+        }
+    </script>
+    <div id="main_div">Please login
+
+
+        <input type="button" onclick="getSampleDoc()" value="Get Doc" />
+    </div>
+    <div id="resp">resp goes here</div>
+    <div id="footer_div"></div>
+
+    <script type="text/javascript">
+        var jsonmenu = {};
+
+        function transposeTable(table) {
+            var tabl = jsontable.table.tbody;
+            table.table.tbody = tabl[0].map((x, i) => tabl.map(x => x[i]));
+            return table;
+        }
+
+        function getXMLHttpData(url, func, elementId, templateId) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myArr = JSON.parse(this.responseText);
+                    func(myArr, elementId, templateId);
+                    if (templateId == "menu") { //populate tables after loading document structure
+                        populateSections(myArr);
+                    }
+                }
+            };
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        }
+
+        function getXMLHttpDataMarkdown(url, func, elementId) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    func(this.responseText, elementId);
+                }
+            };
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        }
+
+        function setElement(jsonData, elementId, templateId) {
+            var divElement = document.getElementById(elementId);
+            divElement.innerHTML = Handlebars.templates[templateId](jsonData);
+        }
+
+        function setMarkdownElement(markdownText, elementId) {
+            var divElement = document.getElementById(elementId);
+            divElement.innerHTML = marked(markdownText);
+        }
+
+        getXMLHttpData("./menu.json", setElement, "main_div", "menu");
+        getXMLHttpData("./Footers/mainFooters", setElement, "footer_div", "footer");
+        //getXMLHttpData("./collections", setElement, "detailed_settings", "table");
+        // function populateItem(itemurl,  )
+
+        function populateSections(jsonmenu) {
+            for (var i of jsonmenu) {
+                if (i.show_table) {
+                    getXMLHttpData("./colTable/" + i.collection, setElement, "detailed_" + i._key, "table");
+                } else if (i.show_text) {
+                    getXMLHttpDataMarkdown("./colMarkdown/" + i.collection, setMarkdownElement, "detailed_" + i._key);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

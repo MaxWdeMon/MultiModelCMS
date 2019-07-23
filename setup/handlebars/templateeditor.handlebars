@@ -1,20 +1,20 @@
 <div>
 		<div>
 			<label for="source"  class="w3-block w3-teal">Handlebars Template</label>
-			Resize: <input type="range" min="1" max="100" value="8" class="slider" onchange="resizeTextArea(this)"/>
-			<textarea id="source"  class="w3-input" type="textarea" spellcheck="false">
+			Resize: <input type="range" min="5" max="20" value="8" class="slider" onchange="resizeTextArea(this)"/>
+			<textarea rows="8" id="source"  class="w3-input" type="textarea" spellcheck="false">
         {{this.raw}}</textarea>
 		</div>
 		<div>
-			<label for="context" class="w3-block w3-teal">Context (JavaScript literal or JSON) </label>
-			Resize: <input type="range" min="1" max="100" value="8" class="slider" onchange="resizeTextArea(this)"/>
-			<textarea id="context"  class="w3-input" type="textarea" spellcheck="false">
+			<label for="context" class="w3-block w3-teal">Sample Data (JSON) </label>
+			Resize: <input type="range" min="5" max="20" value="8" class="slider" onchange="resizeTextArea(this)"/>
+			<textarea rows="8" id="context"  class="w3-input" type="textarea" spellcheck="false">
         {{stringify this.sampleData}}</textarea>
 		</div>
 		<div id="helpersWrap">
 			<label for="helpers"  class="w3-block w3-teal">Register Helper functions (if any)</label>
-			Resize: <input type="range" min="1" max="100" value="8" class="slider" onchange="resizeTextArea(this)"/>
-			<textarea id="helpers" class="w3-input" type="textarea" spellcheck="false">
+			Resize: <input type="range" min="5" max="20" value="8" class="slider" onchange="resizeTextArea(this)"/>
+			<textarea rows="8" id="helpers" class="w3-input" type="textarea" spellcheck="false">
         {{this.helpers}}
       </textarea>
 		</div>
@@ -29,8 +29,8 @@
   <div>
 		<div>
 			<p  class="w3-block w3-teal">HTML Source Output</p>
-			Resize: <input type="range" min="1" max="100" value="8" class="slider" onchange="resizeTextArea(this)"/>
-			<textarea id="output-html-code" class="w3-input" >
+			Resize: <input type="range" min="5" max="20" value="8" class="slider" onchange="resizeTextArea(this)"/>
+			<textarea rows="8" id="output-html-code" class="w3-input" >
       </textarea>
 			</div>
 			<div>
@@ -38,8 +38,8 @@
 		<div id="output-html-view" class="w3-card-4 w3-border-red">
     </div>
 	<p  class="w3-block w3-teal">Compiled Template Preview</p>
-			Resize: <input type="range" min="1" max="100" value="8" class="slider" onchange="resizeTextArea(this)"/>
-			<textarea id="compiled"  class="w3-input" spellcheck="false">
+			Resize: <input type="range" min="5" max="20" value="8" class="slider" onchange="resizeTextArea(this)"/>
+			<textarea rows="8" id="compiled"  class="w3-input" spellcheck="false">
 				{{this.compiled}}
       </textarea>
 		</div>

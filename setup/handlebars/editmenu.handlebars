@@ -1,117 +1,187 @@
  <div class="w3-bar w3-teal w3-display-container" id="navbar_lrg">
-    <form>
-        <button class="w3-button" onclick="plusDivs(-1)">&#10094;</button>
-        <select id="allcollections" name="collection" size="1" onchange="updateDocuments()">
-            {{#each collection}}
-            <option value="{{this}}">{{this}}</option>
-            {{/each}}
-        </select>
-        <select id="alldocuments" name="document" size="1" onchange="updateContext(this)">
-            {{#each document}}
-            <option value="{{{this._id}}}">{{{this._key}}}</option>
-            {{/each}}
-        </select>
+        <form>
+            <button class="w3-button" onclick="plusDivs(-1)">&#10094;</button>
+            <select id="allcollections" name="collection" size="1" onchange="updateDocuments()">
+</select>
+            <select id="alldocuments" name="document" size="1" onchange="updateContext(this)">
+</select>
 
-        <button class="w3-button" onclick="plusDivs(+1)">&#10095;</button>                
-        <button class="w3-btn w3-circle">+</button>
-        <button class="w3-btn w3-circle"><i class='fa fa-clone'></i></button>
-        <button class="w3-btn w3-circle">&#10005;</button>
-        <input type="file" id="json_data" multiple size="50" onchange="openFiles()">
+            <button class="w3-button" onclick="plusDivs(+1)">&#10095;</button>
+            <button class="w3-btn w3-circle">+</button>
+            <button class="w3-btn w3-circle"><i class='fa fa-clone'></i></button>
+            <button class="w3-btn w3-circle">&#10005;</button>
 
+            <input type="file" id="json_data" multiple size="50" onchange="openFiles()">
+            <div class="w3-row-padding" id="login"></div>
+            <div class="w3-third">
+                <input class="w3-input w3-hover-grey" type="text" id="un" name="username" placeholder="Username" />
+            </div>
+            <div class="w3-third">
+
+                <input class="w3-input w3-hover-grey" type="password" id="pw" name="password" placeholder="Password" />
+            </div>
+            <div class="w3-third">
+                <input class="w3-btn" type="button" onclick="login()" value="Login" />
+            </div>
+    </div>
     </form>
+    </div>
 
-</div>
+    <p id="selected_files_list"></p>
 
-<p id="selected_files_list"></p>
-  
-<script>
-function updateContext(selectDocument){
-  var event = new CustomEvent('newDocumentSelected', { detail: selectDocument.value });
-  selectDocument.dispatchEvent(event);
-}
+    <script>
+        function login() {
 
+            var url = "/_db/school/_open/auth";
 
-
-function populateCollectionsList(selectElementId, listOfCollections){
-    var selectList = document.getElementById(selectElementId);
-    for (var i = 0; i < listOfCollections.allcollections.length; i++) {
-        var option = document.createElement("option");
-        option.value = listOfCollections.allcollections[i];
-        option.text = listOfCollections.allcollections[i];
-        selectList.appendChild(option);
-    }
-}
-
-function populateDocumentsList(selectElementId, listOfDocuments){
-    var selectList = document.getElementById(selectElementId);
-    for (var c of selectList.children){
-        c.remove();
-    }
-    for (var i = 0; i < listOfDocuments.length; i++) {
-        var option = document.createElement("option");
-        option.value = listOfDocuments[i]._id;
-        option.text = listOfDocuments[i]._key;
-        selectList.appendChild(option);
-    }
-}
-
-function fetchData(url, elementId, func){
-  fetch(url)
-    .then(function(response){
-      func(elementId, JSON.parse(response.json()));
-      })
-    .catch(function (err) {
-        console.log("Something went wrong!", err);
-    });
-}
-
-function getXMLHttpData(url, elementId, func){
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var newData = JSON.parse(this.responseText);
-            func(elementId, newData);  
+            var data = {
+                "username": document.getElementById("un").value,
+                "password": document.getElementById("pw").value
+            };
+            fetch(url, {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, cors, *same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'include', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrer: 'no-referrer', // no-referrer, *client
+                    body: JSON.stringify(data), // body data type must match "Content-Type" header
+                })
+                .then(function(response) {
+                    return response.json();
+                }).then(jwt => {
+                    
+                    sessionStorage.setItem("jwt", jwt.jwt);
+                    document.getElementById("login").className += "w3-hide";
+                }).catch(function(rejected) {
+                    document.getElementById("resp").innerText = rejected;
+                });
         }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-}
-getXMLHttpData("collections/", "allcollections", populateCollectionsList);
-updateDocuments();
 
-function updateDocuments(){
-    var allcollections = document.getElementById("allcollections");
-    var selectedCollection = allcollections.options[allcollections.selectedIndex].value;
-    getXMLHttpData("collections/"+selectedCollection, "alldocuments", populateDocumentsList);
-}
+        function getSampleDoc() {
+            console.log("get sample doc");
+            var jwt = sessionStorage.getItem("jwt");
+            var docHandle = document.getElementById("alldocuments");
+            var collectionID = document.getElementById("allcollections");
+            var selectedCollection = collectionID.options[collectionID.selectedIndex].value;
+            var selectedDoc = docHandle.options[docHandle.selectedIndex].value;
+            var url = "/_db/school/_api/document/" + selectedDoc; //test_handlebarsTemplates/editmenu";
+            fetch(url, {
+                method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, cors, *same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'include', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'bearer ' + jwt
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrer: 'no-referrer' // no-referrer, *client
+            }).then(function(r) {
+                return r.json();
+            }).then(function(responseJSON) {
+                console.log(responseJSON);
+                sessionStorage.setItem("json", JSON.stringify(responseJSON));
+                console.log(sessionStorage.getItem("json"));
+                if(selectedCollection.endsWith("handlebarsTemplates")){
+                  setElement(responseJSON, document.getElementById("content"), "templateeditor");
+                }else{
+                  setElement(responseJSON, document.getElementById("content"), "anyjsonform");
+                }
 
-function openFiles(){
-  var x = document.getElementById("json_data");
-  var txt = "";
-  if ('files' in x) {
-    if (x.files.length == 0) {
-      txt = "Select one or more files.";
-    } else {
-      for (var i = 0; i < x.files.length; i++) {
-        txt += "<br><strong>" + (i+1) + ". file</strong><br>";
-        var file = x.files[i];
-        if ('name' in file) {
-          txt += "name: " + file.name + "<br>";
+
+            });
         }
-        if ('size' in file) {
-          txt += "size: " + file.size + " bytes <br>";
+
+        function updateContext(selectDocument) {
+            console.log(selectDocument);
+            getSampleDoc();
         }
-      }
-    }
-  } 
-  else {
-    if (x.value == "") {
-      txt += "Select one or more files.";
-    } else {
-      txt += "The files property is not supported by your browser!";
-      txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
-    }
-  }
-  document.getElementById("selected_files_list").innerHTML = txt;
-}
-</script>
+
+        function setElement(jsonData, tgt_element, template) {
+            if (template == "markdown") {
+                tgt_element.innerHTML = marked(jsonData);
+            } else {
+                tgt_element.innerHTML = Handlebars.templates[template](jsonData);
+            }
+        }
+
+        function populateCollectionsList(selectElementId, listOfCollections) {
+            var selectList = document.getElementById(selectElementId);
+            for (var i = 0; i < listOfCollections.allcollections.length; i++) {
+                var option = document.createElement("option");
+                option.value = listOfCollections.allcollections[i];
+                option.text = listOfCollections.allcollections[i];
+                selectList.appendChild(option);
+            }
+        }
+
+        function populateDocumentsList(selectElementId, listOfDocuments) {
+            var selectList = document.getElementById(selectElementId);
+            for (var c of selectList.children) {
+                c.remove();
+            }
+            for (var i = 0; i < listOfDocuments.length; i++) {
+                var option = document.createElement("option");
+                option.value = listOfDocuments[i]._id;
+                option.text = listOfDocuments[i]._key;
+                selectList.appendChild(option);
+            }
+        }
+
+        function fetchData(url, elementId, func) {
+            fetch(url)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(respJSON) {
+                    console.log(respJSON);
+                    func(elementId, respJSON);
+                })
+                .catch(function(err) {
+                    console.log("Something went wrong!", err);
+                });
+        }
+
+        fetchData("collections/", "allcollections", populateCollectionsList);
+        updateDocuments();
+
+        function updateDocuments() {
+            var allcollections = document.getElementById("allcollections");
+            var selectedCollection = allcollections.options[allcollections.selectedIndex].value;
+            fetchData("collections/" + selectedCollection, "alldocuments", populateDocumentsList);
+        }
+
+        function openFiles() {
+            var x = document.getElementById("json_data");
+            var txt = "";
+            if ('files' in x) {
+                if (x.files.length == 0) {
+                    txt = "Select one or more files.";
+                } else {
+                    for (var i = 0; i < x.files.length; i++) {
+                        txt += "<br><strong>" + (i + 1) + ". file</strong><br>";
+                        var file = x.files[i];
+                        if ('name' in file) {
+                            txt += "name: " + file.name + "<br>";
+                        }
+                        if ('size' in file) {
+                            txt += "size: " + file.size + " bytes <br>";
+                        }
+                    }
+                }
+            } else {
+                if (x.value == "") {
+                    txt += "Select one or more files.";
+                } else {
+                    txt += "The files property is not supported by your browser!";
+                    txt += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+                }
+            }
+            document.getElementById("selected_files_list").innerHTML = txt;
+        }
+    </script>

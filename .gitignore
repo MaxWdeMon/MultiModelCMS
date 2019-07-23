@@ -1,0 +1,9 @@
+*/.DS_Store
+node_modules/
+setup/handlebars/serverside/.DS_Store
+setup/old/.DS_Store
+setup/img/.DS_Store
+setup/handlebars/.DS_Store
+scripts/._teardown.js
+__MACOSX/._scripts
+.DS_Store
